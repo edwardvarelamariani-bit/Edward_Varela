@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edward Varela Mariani — CV</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan: #00f5ff;
+    --magenta: #ff00aa;
+    --green: #39ff14;
+    --amber: #ffb700;
+    --dark: #020810;
+    --dark2: #050f1a;
+    --dark3: #0a1628;
+    --panel: #060e1c;
+    --panel2: #081220;
+    --border: #0a2a4a;
+    --border2: #0d3356;
+    --text: #c8e8ff;
+    --text2: #8aafca;
+    --muted: #4a7a9b;
+    --glow-c: 0 0 10px #00f5ff, 0 0 20px #00f5ff44;
+    --glow-m: 0 0 8px #ff00aa, 0 0 16px #ff00aa33;
+    --glow-g: 0 0 8px #39ff14;
+    --glow-a: 0 0 8px #ffb700;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--dark);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Scanlines */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,245,255,0.012) 2px, rgba(0,245,255,0.012) 4px);
+    pointer-events: none; z-index: 100;
+  }
+
+  /* Grid */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; z-index: 0;
+  }
+
+  .cv-wrapper {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px 24px 70px;
+    position: relative; z-index: 1;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes scan { 0%{top:0;} 100%{top:100%;} }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+  @keyframes pulse { 0%,100%{box-shadow: 0 0 6px #00f5ff44} 50%{box-shadow: 0 0 16px #00f5ff88} }
+  @keyframes glitch {
+    0%,94%,100% { transform: translate(0); }
+    95% { transform: translate(-2px, 1px); clip-path: inset(20% 0 60% 0); }
+    97% { transform: translate(2px, -1px); clip-path: inset(60% 0 10% 0); }
+  }
+
+  .section { animation: fadeUp 0.7s ease both; }
+  .section:nth-child(1){animation-delay:0.05s}
+  .section:nth-child(2){animation-delay:0.12s}
+  .section:nth-child(3){animation-delay:0.19s}
+  .section:nth-child(4){animation-delay:0.26s}
+  .section:nth-child(5){animation-delay:0.33s}
+  .section:nth-child(6){animation-delay:0.40s}
+  .section:nth-child(7){animation-delay:0.47s}
+
+  /* ─── HEADER ─── */
+  .header {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 28px;
+    align-items: center;
+    padding: 28px 32px;
+    background: var(--panel);
+    border: 1px solid var(--cyan);
+    box-shadow: inset 0 0 50px rgba(0,245,255,0.04), 0 0 30px rgba(0,245,255,0.08);
+    position: relative;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s ease both, pulse 4s ease-in-out infinite;
+  }
+
+  .header::before {
+    content: '// IDENTITY_FILE_v3.0 — CLEARED';
+    position: absolute; top: -10px; left: 16px;
+    font-family: 'Share Tech Mono', monospace; font-size: 10px;
+    color: var(--cyan); background: var(--dark); padding: 0 8px; letter-spacing: 2px;
+  }
+  .header::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--magenta), transparent);
+  }
+
+  /* Avatar */
+  .avatar-wrap { position: relative; width: 130px; height: 130px; }
+  .avatar-wrap::before { content:''; position:absolute; top:-4px; left:-4px; width:20px; height:20px; border-top:2px solid var(--cyan); border-left:2px solid var(--cyan); }
+  .avatar-wrap::after  { content:''; position:absolute; bottom:-4px; right:-4px; width:20px; height:20px; border-bottom:2px solid var(--magenta); border-right:2px solid var(--magenta); }
+  .avatar-inner { position:relative; width:100%; height:100%; }
+  .avatar-inner::before { content:''; position:absolute; top:-4px; right:-4px; width:20px; height:20px; border-top:2px solid var(--magenta); border-right:2px solid var(--magenta); }
+  .avatar-inner::after  { content:''; position:absolute; bottom:-4px; left:-4px; width:20px; height:20px; border-bottom:2px solid var(--cyan); border-left:2px solid var(--cyan); }
+  .avatar-wrap img { width:130px; height:130px; object-fit:cover; display:block; filter:brightness(0.88) contrast(1.15) saturate(0.9) hue-rotate(5deg); border:1px solid var(--muted); }
+  .scan-line { position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--cyan),transparent); animation:scan 3.5s linear infinite; opacity:0.4; pointer-events:none; }
+
+  /* Name block */
+  .header-info { padding: 2px 0; }
+  h1 {
+    font-family: 'Orbitron', monospace; font-size: 26px; font-weight: 900;
+    color: var(--cyan); text-shadow: var(--glow-c); letter-spacing: 3px; line-height: 1.1;
+    text-transform: uppercase; animation: glitch 0s ease infinite;
+  }
+  .subtitle {
+    font-family: 'Share Tech Mono', monospace; font-size: 11px;
+    color: var(--magenta); letter-spacing: 3px; text-transform: uppercase;
+    margin-top: 5px; text-shadow: var(--glow-m);
+  }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px;
+    margin-top: 14px;
+  }
+  .contact-item {
+    font-family: 'Share Tech Mono', monospace; font-size: 11px;
+    color: var(--muted); letter-spacing: 0.5px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .contact-item .lbl { color: var(--cyan); font-size: 9px; letter-spacing: 1px; }
+  .contact-item a { color: var(--text2); text-decoration: none; }
+  .contact-item a:hover { color: var(--cyan); }
+
+  /* ─── STATUS BAR ─── */
+  .status-bar {
+    display: flex; flex-wrap: wrap; gap: 4px 0;
+    padding: 8px 16px; margin-bottom: 28px;
+    background: rgba(0,245,255,0.03); border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 1px;
+    animation: fadeUp 0.6s 0.08s ease both;
+  }
+  .status-item { display:flex; gap:6px; margin-right: 28px; }
+  .dot { color: var(--green); text-shadow: var(--glow-g); animation: blink 1.8s infinite; }
+  .dot-a { color: var(--amber); text-shadow: var(--glow-a); animation: blink 2.2s infinite; }
+
+  /* ─── SECTION HEADER ─── */
+  .section { margin-bottom: 26px; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border); position: relative;
+  }
+  .section-header::after {
+    content: ''; position: absolute; bottom: -1px; left: 0;
+    width: 60px; height: 1px;
+    background: var(--cyan); box-shadow: var(--glow-c);
+  }
+  .section-tag { font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--magenta); letter-spacing:2px; }
+  h2 { font-family:'Orbitron',monospace; font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:4px; text-transform:uppercase; }
+
+  /* ─── PERFIL ─── */
+  .profile-box {
+    background: var(--panel); border: 1px solid var(--border);
+    border-left: 3px solid var(--cyan); padding: 18px 22px;
+    font-size: 15px; color: var(--text); font-weight: 300; line-height: 1.9;
+  }
+  .profile-box p + p { margin-top: 10px; }
+  .highlight { color: var(--cyan); font-weight: 600; }
+
+  /* ─── JOB CARD ─── */
+  .job-grid { display: flex; flex-direction: column; gap: 14px; }
+  .job-card {
+    background: var(--panel); border: 1px solid var(--border);
+    padding: 16px 20px 16px 24px; position: relative;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .job-card:hover { border-color: rgba(0,245,255,0.4); box-shadow: inset 0 0 20px rgba(0,245,255,0.04); }
+  .job-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--cyan), var(--magenta));
+  }
+
+  .job-top { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:6px; margin-bottom:4px; }
+  .company { font-family:'Orbitron',monospace; font-size:10px; color:var(--magenta); letter-spacing:2px; font-weight:700; text-transform:uppercase; }
+  .date-badge {
+    font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--muted);
+    background:rgba(0,245,255,0.05); border:1px solid var(--border);
+    padding:2px 8px; letter-spacing:1px; white-space:nowrap;
+  }
+  .role { font-size:16px; font-weight:700; color:var(--text); margin-bottom:8px; }
+
+  /* Metric pills */
+  .metrics { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+  .metric {
+    font-family:'Share Tech Mono',monospace; font-size:10px;
+    color:var(--amber); border:1px solid rgba(255,183,0,0.3);
+    background:rgba(255,183,0,0.06); padding:2px 8px; letter-spacing:0.5px;
+  }
+
+  .bullets { list-style:none; display:flex; flex-direction:column; gap:4px; }
+  .bullets li { font-size:13px; color:var(--text2); padding-left:16px; position:relative; font-weight:300; }
+  .bullets li::before { content:'▸'; position:absolute; left:0; color:var(--cyan); font-size:10px; top:2px; }
+
+  /* Divider between multi-roles */
+  .role-block + .role-block { margin-top:12px; padding-top:12px; border-top:1px dashed var(--border2); }
+
+  /* ─── CERT / FORMACIÓN ─── */
+  .cert-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .cert-card {
+    background:var(--panel); border:1px solid var(--border);
+    padding:14px 18px; position:relative; overflow:hidden;
+  }
+  .cert-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--cyan), transparent); }
+  .cert-card.active::after { background:linear-gradient(90deg, var(--amber), transparent); }
+  .cert-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .cert-inst { font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:1px; }
+  .cert-date { font-family:'Share Tech Mono',monospace; font-size:10px; margin-top:6px; }
+  .cert-date.done { color:var(--green); }
+  .cert-date.wip  { color:var(--amber); animation:blink 2s infinite; }
+
+  /* ─── EDUCATION ─── */
+  .edu-card {
+    background:var(--panel); border:1px solid var(--border);
+    padding:16px 20px; border-top:2px solid var(--magenta);
+  }
+  .edu-inst { font-family:'Orbitron',monospace; font-size:10px; color:var(--magenta); letter-spacing:2px; margin-bottom:10px; text-transform:uppercase; }
+  .edu-row { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:6px; }
+  .edu-title { font-size:14px; font-weight:600; color:var(--text); padding-left:14px; position:relative; }
+  .edu-title::before { content:'◆'; position:absolute; left:0; color:var(--cyan); font-size:8px; top:4px; }
+  .edu-period { font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--muted); }
+
+  /* ─── SKILLS ─── */
+  .skills-cols { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .skill-group-title { font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--magenta); letter-spacing:2px; margin-bottom:8px; }
+  .tag-cloud { display:flex; flex-wrap:wrap; gap:6px; }
+  .tag {
+    font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--cyan);
+    border:1px solid rgba(0,245,255,0.25); padding:3px 9px;
+    background:rgba(0,245,255,0.04); letter-spacing:0.5px; cursor:default;
+    transition:all 0.2s;
+  }
+  .tag:hover { background:rgba(0,245,255,0.12); border-color:var(--cyan); box-shadow:var(--glow-c); color:#fff; }
+  .tag.hi { border-color:rgba(255,183,0,0.4); color:var(--amber); background:rgba(255,183,0,0.05); }
+  .tag.hi:hover { background:rgba(255,183,0,0.12); box-shadow:var(--glow-a); color:#fff; }
+
+  /* ─── LANG ─── */
+  .lang-row { display:flex; gap:14px; flex-wrap:wrap; }
+  .lang-card {
+    background:var(--panel); border:1px solid var(--border);
+    padding:12px 22px; min-width:130px; position:relative; overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+  }
+  .lang-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--cyan), transparent); }
+  .lang-name { font-family:'Orbitron',monospace; font-size:13px; font-weight:700; color:var(--text); letter-spacing:2px; }
+  .lang-lvl  { font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--cyan); letter-spacing:2px; }
+
+  /* ─── REMOTE PROFILE ─── */
+  .remote-box {
+    background:var(--panel); border:1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    padding:14px 20px;
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+  }
+  .remote-item { font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--muted); display:flex; gap:6px; align-items:center; }
+  .remote-item .ic { color:var(--amber); }
+
+  /* ─── FOOTER ─── */
+  .cv-footer {
+    margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;
+    font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:1px;
+  }
+
+  @media print {
+    body::before, body::after, .status-bar { display:none; }
+    .cv-wrapper { padding:16px; }
+    .job-card, .cert-card { break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="cv-wrapper">
+
+  <!-- ══ HEADER ══ -->
+  <header class="header section">
+    <div class="avatar-wrap">
+      <div class="avatar-inner">
+        <img src="data:image/webp;base64,UklGRkodAABXRUJQVlA4WAoAAAAMAAAAjwEAjwEAVlA4IMIbAADwqgCdASqQAZABPnU6mEikqagkJlIZyTAOiWM681yDHjmffcVo9m0jPJvi5GgyAvt3z/TZ5hfQt83vnB+pP0D/2Z9bj1svQ86bf+9EZaPduGG3VV6cJUKYtXC99rxE3gFttyeiAyvB1eH6qhz+hIqlX3egyK+sQMby7UhvyE4S9+M2/4GRSFS+daqjCxfHpj1UPhvmmSFFxgGawK5Np4DqNctBLHSVhFgHn6GGA2k4+f0cR0L5+g79HZW/IV14dTjdaHrwVXnEjuoDaH0m7ATmokr/NbAwdIDnzPzc5hOyBmRIUg65EgFRbgQu4N+YN0sQpNoNPSB2aE4TYDunNmpMZXa2uS82sR8FtlxtE6MNZ1Lp5PpcbyLvu8loe3VDv9BcLQfuK0IGZRF3r6qvXV6D3vFrzgHAqCykKdPDw7C8qlT//+br8elkPWwKIrClJdFSZiY89qSjS/cYBopCU7D2kltef1m/kmJPRgL5g3SyHTClgXYRo3+QV+Z91tvlpGy4lSnVYJoEW3+HocB5I6PGO0MDnVks7RyQCQDKTkZ9g/alJkyT/rfqFMWp+BpaXSiWtHmipOoE3dSLWqih5ewRaLlJfqf8jlEchOJAOtIeCIRMlISBs8pNz8dgk3Fq4YNd1u485mRuRLnf/GYq3W80ForA9qqJ/BYFyawdoFohfg+Q8O2o05vKu6lzEjJtwP5LjRtHDMohMLLyzsQSzOJGWD8W+HfoXZvXE+ZuJ+ixTd4yweouI8cjphr9tjbxwdHxziBoTwJHaLe8qOWSkLPwVHlNoUCRYbstXGQ5+jL6bvGdC9v3dnByDJ/WafIqMzo9lEdbDQFt1EAI3wTBy2kfpn5VhI259Eca14zP87qNjbLx6b/3qS1P0NbhgR7ySMCrOOrp7I151TklvV3zw3d/JFLmUJbT32PlbK7kNviRfY0B4GdvarrunD8YV85Ho47J6hJIVdUGTr7dvzIRfkrvvURrKcvJ9fQ2HV3IKxZAT9yOy9WhNRfcmERdjVbw5rEEiP/zqeA7cg3mPXNzYUb5nu258gAzg8LLl7o+thhBVg48BU9g1AkFh6eYwe9D7po4GtodUfIhZgi2vhEwqwbLtSf+WiuHABKdgf7Arj4lqOTFOAnzLdmxASwyTLF1xL/XPLKKfyJZFoEva57NhqhvkSzawpAU56ddVoMM2ONIC3W2jJcHkWWRZL21rMdW1s/ncvsvaeyI4L4SJz16s90Xqbk9CWSL5oqdViHDnJho7pHy3Nm/WJgKB4H2o2Lx3awO5HXuL8McSUZC/eEWUQ5xOLYzCoEHbkJ3f3KaZeZnn44O/r1SwlIK2nXhb+q29qIt+mUNXRLXii8nlcYjFTwydGWeb3GKlkoeeb92fd+gH99YYAV+E8t9YQzuKJU1jSmSEq2YIEvBuYmAOEOXRMmfqKJZgR2fTZCETK45f72nu+lW3ETo3Fp7ov+3PwHRNF0BUhWELRZBnjFQax1BWNeTRcw6lDZehJziWJ7/+2mSFnUy2Mnu/VcddEpcPV+r/l4xHyg3AuV2A/hDMmwddw9eIiW0emfOIPhWBXivFobDcUSCXGWdckm4MqJy+IWlwrNA9xgaizjKdXEGb34nR8Y/Z/GaeBYyItbsU1ijqNedELx4I117MWqzw36iLOj9dhT9LhnNhM2dCq8HCCTLKcf2WLxyQm+Ppmaf6DzeD7fptccul+qkgLXCdx/Cmp9x5xpg9gMGSpvJAxIHfVLLGaWWRGsz2GUMQ7wXtCfDe11+cpVthfB7W1D+aQhKnHlFkO0709xqWAxrvsR+RXglpJQoUjv5OhmgofQqaaOIfD81gAD+/BvOC8pZk4KSQ7aKCm7miLwBCGIdZdYThCF0SRXcio40C5V6gpgyPOYNozTUxQSKfVastQaAnlAALRtLAtgJ0+fINU8YMi9FR+FiYORcaEClacF8XssSgaX+mYNmI6INwUlkr1M3brE1Kdc66FhM06gPqOHPZD+bppUkWveHSxd0Y3ynK8T7Ob+4g2ScWDytEGCu48fIvSx98WLlfssEyAQzTRCj++ad8hWoKZmR+L0VRhQ3q+3YxcP0pyVIlNtIb1d8yCshyUosFnqx3Aj5j2K6xSvBjYGDXzpVgSmqEKvtu3m4AooXFZGJpKZSXcsQl7c9p+uRSDVnYUStHh6mj2aIj64BpqXFEBhMg0GckXQtjMeraUMbLQR6Enrwjdy9ar1m29ecOOpzLcDgiUVe4xREkvORSgbnKk97YASWFOLv/JPcA2DT8E/Ay1x+VfqaExeHvQMZenvIncSrDNuNePhZUwRPsKm9EB44kJ499aZDKV7ctmc8DOHAARUliMD3gWoQtBMgNeDmKUv+6URT9poQmVpCmFtavECPU+ttYfsxA3zZjsL742vwWrdPXNZdWwgMktAG1yqyqWfiLU6B31FEI1nSkdHZdIbB4j8GPLfQhGLdiFkkqnj/tctoEeB6/1vw7RwSK3DlywbWYBe98p7IsJbMUUctZMD9lXYMabcuzJ00K3lu7eJU7qc+RLzzWGtmkP3l+O5WjF3CdtXOGFxUdwC7LbRaNKBQNG3dNa+dRGGv02gM6exYU19Z0gzUrWZHO/osdCIDW2YVt8GHdhrYTiQR90MNCGNg47EbKfMRwlLXV4bqkTcYtO5o7LQO31xuNbBMr2Ys+YFYwOqSgukG5Pr4c82U7X4Il2hgIpsIv1DGD7ZuldlLUdwnDJxKdduVXWH3yihkKowVuJShXehOZ9AvU6AA/xngvA5IijmgW0FhV9Ef5yBDM8Sx3gud5fLrL7ddBpohRwPWPnsvKUpbcyzEWLZtB+P7FA/ed/sQgr56iCsuoRVwl+dxQkfP3i1cdOgoc4kfz6V/gGiDWNKZJBgKBNSzS073mxhqTMw1EWTkLmDxDa3brw/DjW9AL53baaU7Y2Idf/Qyj+okl2ImlgDqU4AACDSdr6fog1mTJYxPeDB1x8Tkz2/nnxmN9YJJdNCHZfaVqlIJ3fSNWE4775opUkdbI8XTp6BZfqf20hB5lq5we4J5urfzs6uE1mjX3C5CJin1EnrsXdXn3IwFhhEevtZD55syX06H+txABH0jHQIsfwZWChG55s2GpMWdDNpBTNzl0U/iGlXATyHjweC6TmbVIBVv9LwrSDD1K8gqaGaQuAAAGmRYPKsC52sRqH+1HWBmrh4ufuhUPxdh+/INH4w6VLT9KJugMwNmvtGxvZoUdFc/A3SrLz5Em+DuS1sh6XNZFX8JEWrhkyAUBaIdNBQDcmI8N3uwcBqPBk+AZphkEyEU3YRpe9w63Ov4PkW34rVyCyfayAANsgBp/k8mG98uGx7MfSABqZR44yEud9Sng87kKNS+mZSqIlnwWrCiyFRPncgkg2QaEzWZokiscCHjThAnzba7zFHONEL5GxQbtAtxP59odNPuSnJ2WS6ECwkOeujEMs8PGlmwUiXGIGup5+UcgAOJBtVL7Kvr1wByEODty4pu0o/D9sda/GMmyObqViZBjP2GNjnRGhdJ5oi0WSDGKwJBUs4DG7N7+lwUNQdGz5zHEuTJXJjNTBJhSuBPyIgGPhTkUeD/0i3DYmkRANpF2ODzfBd01aOa2ED2TZyXTK6LBsdSKtk8AHAz1RK2s910bBxoYcUEVY02NslfqTqYORq++Q6MtWEME6QE8EqNci+ZRY6CWO02Bt6Dd1eaqg5jweZdZymIo4ZrweU3Y/Y9sba/fqyZCTnffA4zQMWYvqJyzMAftT3Pfm8bCsy/Xo5UU3wGl1ZMHSdXHzABMiMIsCFqCIIUuQbxCH/K1iOkPyPaEO2wL8xY+rmLlhswH06qpGT039Z8AbExKHHYhEsDK0pNR6AmyJkVQ53gnuQhOnS/n47BWU9C40OVEApLqVlF/9TLdyryxQYDiCLtwhBT+xN0LLGy0gGGgC8ki88bu6zUmsWsMC8fKaNn3KXqJDeW3BzXLCRJb4VHjpvGbD+MRDxGChfXeb33ors1UvKkuqDklC3VWdKQyUiBRlM46UHHrYL9qLXjILK/TQ45EC8jI+9JWVZJi8t5uuPs3gHATLmuIrW4XLmu/LlcbsOhEQ0U7adVn9dma70bN/S0YH4zxq09vMKLieONNVdkJutxo6+Ly2eULNyN3Lf5kwoOq57x7/kGpvWINDlna/TzzD6hsQ4jrmv5Oc3dICk/b9Udmv7OMQ25ZBDP+YxBWZRvsE1b5Z0gIhuedmTRZSVOQq3ZNszTo7sUCVVYFZR9miWT0OwEi/CfkTJKHpfl7t6dNo3gzd0zENjhQCrsUJXeGUh64eVDU8xVcvWPfShWZldpyieLf4cKl8tj5JQmQrHrz6cppNWSYRooWCLyJdDaL1sLE96VgKBHM4g98BTQip/seZ33K9oox8QhJsFMpgitOkSLamJDIn20jXT+KlhQHyAnqt6YSLzm8iWUCEwUNIob9npIaSC2CLb0ih/dQwmA80yE/cAW2qD+fJendHg3HK2ZSWmTD13VGVnBMhoEYcQ4Bx0ss3kN/yHDBIogu6BfROrFvCYUxfJCJ48HNF28Lffr70k7BUSdu6K+2f9m7rO4SWNBUPRRObOurIQEW7u3Sb946nsyMZalE2l7n4IdoKUpeCUhnCemUn4kn9bau/uUwZrPNawS25pjqEfP9Fvlb6V2tBbzaoMR1BF7WOhgXTHz1qTyk26tlRnIKoemTr5rF14pMJBfOENM//NNAY27IeU0WfWN/cpRvBIFTTs7pQCE5bHsqvif1zcnPUOfThRx1Wrtd8qVLPa8Pa4NPhVRJRP7mBbGZn2ybJROn3gKYUM6M0U8FOLKH6guJyGK7nCaHvDCxziS6triRs7w1/k0F+BeqD5qGu6xDrGxci8cZ36zpDQJum4UA6sk+vM4kpONFvhpxiW0CmADTlIljp+jsZtNPoQGoiIE8RUKTBCFc6vhRZgQorDp7t+ss+1bjHTnbGpbmcmIfAvZDTMR/tb7DcmeWf900Je6Z90c+WwvVExL+WR689cb4YwuN+UFoakm1QFVcTmnpjTxWoOO0GhsNxkQGxgbyf1WP1Ld6GuoLQ7YzqmicFfMaWXgUjWgQtxmNJjqSABcilSXclCnZ4mNIVAq3CTjv0tbBp8TKrOHMXf1sfN3zNSkSGS93K5zTe873CLiG2EonOe0r9vsIwoKtLsXxIxmVkDwklSwKcfM7AcxCR+JopV8+6tHuJgesvFmXqPdVRqiAcX1rgdlxy5Ef5O2vCl6q5y6vFCP2Z6DV9XaQgNEBuwjh6GsVtIT/ZrYKO3V9aRIDMcO49IW1yzjv7skpHbmpsxB7B2w1CYnOcHh6OcMdcraCXczgu5yOxQAI8ZHjxeACJMbtMyS1j0zeLPWx9SVj/weyaVd6mcAsklRANnPvoz5xJE3OFT9ZruDDt4IbP5+UiOEZpWcrcTcLPKFW+jIUGrpejPjbIa9rUCDViKW3s4P498YCsbHqubIZTtCIwhIfVxy8gkI9QHEpBpHZxy4Q0icowmr6xJc7pPS2Lhpv+x+SgSCoWHGI+sxD56rvPhfQKG+40PRSMxz/xBxi+HG6ak4g/f7eQZcae5IFyKeYswoE3amFmGjZdcFP+PUZGwnLTENpi5ZFOUfT8FZKuAlYj0LhD3NK1sYKzYcI/yI9ZpmHgnh1mfQZbW3TwHRS2njv4FRMaWep104iK0eqZ/bA0tFcjgq3qHS7ySJaxq1Jd8YoKPxBzL/nFB9YVJRzsmagJl3Bt7EyxLgjsxunqYk7xR1qnqPQdvgpxJyC2bmvJS0a7UQTRygv0M2M6uwhWeEZpTZs4C5R7Vczcbfv1R+Cp7AO04xNcZXxwmC0JgkkAtDwvMvSn4LBEO3tkYxQiQPlSy2qVcZeCjAlnNv+lHBC4UGFkOiv1U4ovWrAQEFJUWFzZBqDwPsPGOKzum2h7nxCzW9WhQNdJLZyuGPVKOQaHZeAFyXJF7EEL1DUNCxnT1pO7bFSkQA73jqfW/J7jo/eKhpoQUQXm5ux3976mUQTNUUfjN5V2zReQ903Pw4r+5Dtps/jWPHj186cMflLB7a4Wvf9/9RNh8uI+wxDbsnV0u/yE4v2C68MgX8GPCUL1lGulp9N912vFJ1yaYcCJcRodytfyFeydIhDOygtM53LK61h5ZT0YUKDZcJ5G4buUjssJ79PnnHIN6S5JVQKyT6Mh4DpsNZB+37uHQp51FvmuxIytgZ9S/UIE0hkHw0Ie0mvglFZUZWs0LdK7Lzk5YAKdhZ+CAQqrdNIDSUJPXgBqo5gPPFMksp86JwbKJaVM0pvsDYyUWh6e+9geeMVFKDva+P13XTSu9RxH/7a7I5KIJOnnpaAtTx23WwvAxvp4G7fVXvjPbo/SdSOhiW3++R1EyqQNBu+RMJH4W/cAGbXp3SbmBhAf4LvD9sqX9a08F1Nl9eqg9H6JTFZKPQjEZBqi6URYg5THhEJftharvgRAMbxrQjwHd+mVTMHK5bIu7NFbRJZiysDwx8t4zM+H8ikrIPgVhGgBzQ/6fCOE59WzRozdDqpYcgqmP5r0WJjrJIRHl9qSk0/ptn8aDLojRgEDLJXOYMsgYPJglGfFiN8/f+uX2kmA7H9yglm494vvNv6iFR7mfNwDNgFGtZkiCNlcJL0OIVRWRGIUA1D03NtAyo17/4gXyn+pfIvkYydZJ217n2PzcnrNQ/3DBUgMQxGwvATIQIqYY535E9goCZKguTrfnTE5nZNgJ+6N8FXAOARGclZkjV6QTW0IUspy5CnKwVWeX4FhNdPyYr5n1YSPK8w6lFntt9+8fbs7Q/ChfrrblytqbzYJajlrhu7oW7CDE+cu7I9ecWv//fE5CGr1LsmLs29+y1D8OERxWLwxSINXBpOOy/7jJQEJQZtVnhiZU27Sp21E+NK7ileAYLhyjYKNRfGidoPSSVI3zBP2qA2O4HVqg+oCb5rO6+CYLqX2guS11wjQ8xee6iaoFDBYfHqWbmRXPlWnSPIQmjb/x87yieSmtPJX1xBYYnfDvoWwX+m8KxGtS1aC68vhuFLqRdeAAACpNxiieMXbwqPZida8+RIWYr1FgNApmGt2q3Jdv3ScGL+ibZoqGHPzpAc7+nOgH0tUh2UdQrma1YU8yAhSTgIrv3bXrqYP2eBA++PH1D43e1dW1MoPq2iuYdDe4vNPnX89UY8k/th4fJ1ZFs/fsYAR6R2VwZ38MBewAUKYwIqgSReFHmyAu9xOPuzmbNiNuKMA7i9AZ2rRlCQxpCEFeObtdRcme41K5UAu079D/GnFyrO7hPN5TtzdK1WtTa82QfBwMeLsatKP2aT/yTgZcetRFsP5yF/k2t9bpyvWJMvUJBJCejhhFyfWNjjEVcWquJP9qPhGWnY5TTKY3rfmLfSrC8nNKz7VqDvGWumsOCLL8wAUnp6stRCDmUfkJ9DsLTZimtw6okU3PQu4WY457VFaOdKqWOa0HJXdUP97M1qUs/gbRNaappCcWWZ8SA1u56m1TdqHwp9ADSz1OXo/5W8eG/yAGEyN8vs2PGj3LZjReRg1sQ8R4dO8C/lZrcRvo+oByDmel2nizvHuEEdNdVmFoTFI0Audesdv2sOKJ3K7odDipn6+nU9jVgoWy4sws15W4FHHXpRTjLHY4fksSsEIp1criy18jgDwgnrKFnCUZ55e0tsTpszzRh5m0L4V2S6QJ99kJAJa5Osy/bvOVjzWDQCJexPHwqPhWQCDYfnRiYFSin9lm/48BK7ZgOOc2fOMQ1pMwLmeXK8r6fmt5jA8FkziaWGlbs2wmjEQwxG19cHJoYgAx0t3t6wsj10tiwVZ7Bl8/LI4y+Z+nhXk5YZzv8HnRX+tOlBegzHLjmPh4pFGQDgb8YrOCaTdVJd18Vu7GPXWMtsVWSJPitvgKzZNWOL4I/VffQaUg7vR6cWvs2Tg/zXMdjR9nAzxn0uG9cNA09+UxoFpi4MaWl0cJR3JSxE0YG1XkYPXJlUvPKoUOy/YppPwvQGuswJMHH2OII20qmw29nH5+dgnWeydLo0NCSDxJfEQ5xvPgp4ldGVnZfqdlVdZqW0K6WoHYJyj913PHv+pwEXa8FbfumYDOpps648JU0aSqCL5uX96WqjBW5ZNT/8oO62VkhHLIZPjaypMYiDRKv1L507E+RsDAE8gFU77to9numKaYBcHHZWeCF3tvLq265YMlyqd9njpkx3feag9bQXYFOwNTJ+Rffgqum8CTzRWk8cswBoGPlpQFU1wMkcWiQeS2FlbN0T9z0qp/Qf1Hhg70YSX3+EOjgkkogEdwQxFL6yLW+q43xySmXXPHSM1B6n4MU8iJ72Cvce1G2oI1zUNa1E5ZjeHT79FMc7/yEXJoApKWXpqVE67F0bf3J+wYjoNuEAEpmLh89ohTYJH963IsJQ66f63ZBcAbFsCjtbs6i6Mtm+r0kFK7H4zIVQv1lLPwMKhzl0/3UUbvpmDbl2f1z3t+wSdz9ax+xyZMMR7J8MgVMHdD8AoTle+cXRrS/enyGNXa/cE9xLIjhB+1BtBDrK+fsrjK/9TwDFfSXRrRFf+xTVpntaLNx9vkg6Sm6Enb4U1gdeZP+DRugNA099SKFNCEw6u0oErTL6ra+uniW9XseoKIPZ04gpZBe9cNpWs3yDWEuKKPo3U6h3rHu69f+SKVPJim0YsgvjPTUH4XZzj58w9YxPNoCItUtrYFMHik7X5BksmN7g86vIGoDL71kUS8r8kYHRX0um8zWFwFH/YVnkpOsb+y85qQ0RjMAAP9/7jOFRyk+Cj9UGPxWTXEy9k0TWgWv/hGTnyUBxLaIvPN6Yqe8ISXqXqBBPCsR1byVx6Nq4qRLhRnWd++Ibe+39U2Q0/xqRVreOkGF40hlhfZGH++tpmznzb2UobS32mCSSwau9EkdCGlOidjJ0zoM6Kh1NHHuYJ+Q2V4RwkCotqdMmqpccfggvQL5wYuTTojcX8dFJvGY/5RE66/9UyPwB7C1EvJSI1TUO6sZ4u2Cc4xRtKmwOQmIUENZHGuGvZ/B0uwIDD7pgRFKF/heo0j1PvznUs5fO5aliJ8lnWXbbfyaVdwVpVDdx4+xMK92DTAMkSge4JCWUdhb3zcCIaKpfJMfgDJJhIlIESA0eUhojcWkpWpBJ/5OIhmZjyqeVCDJEMNtIuASMamy2DZR1qoy8dHFadY/sCUcr6ZSquLTaxe7uJ+/x97X7U0tbS2nJvtQnL6MpqBkBMxnUTZdT0rC7b7Lxe8g0tq4CrbF5++caMrtgZ3KlyGr9rtjGM7TaEolzdQsB+nI8oPwiHzY4/K960OoFKEhxTOe18CGrVw56h6zHFx7sqfKBEUYhhCfG7CF6jiwYXC9PDoFXHagJBSG9BjHJvdMAV9Y4tV2jr1bpLNwRDCRAfZXdR0T73JryXhwtcVWF5Mqs07SOngXcofDGOK/7cvUE6CvNVKkqJbe8aj1AT9GCDTCMw8ksD0rHzeQAEVYSUZ+AAAARXhpZgAATU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAKgAgAEAAAAAQAAAZCgAwAEAAAAAQAAAZAAAAAAWE1QINsAAAA8P3hwYWNrZXQgYmVnaW49IiIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJHbyBYTVAgU0RLIDEuMCI+PHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj48L3JkZjpSREY+PC94OnhtcG1ldGE+Cjw/eHBhY2tldCBlbmQ9InciPz4A" alt="Edward A. Varela Mariani" />
+        <div class="scan-line"></div>
+      </div>
+    </div>
+
+    <div class="header-info">
+      <h1>Edward Varela Mariani</h1>
+      <div class="subtitle">// SOC &amp; Technical Support Specialist · Remote-Ready</div>
+      <div class="contact-grid">
+        <div class="contact-item"><span class="lbl">TEL://</span> +34 604 869 653</div>
+        <div class="contact-item"><span class="lbl">MAIL://</span> <a href="mailto:edward.varela.mariani@gmail.com">edward.varela.mariani@gmail.com</a></div>
+        <div class="contact-item"><span class="lbl">LOC://</span> Alicante, España</div>
+        <div class="contact-item"><span class="lbl">NET://</span> <a href="https://linkedin.com/in/edward-varela-95a7872a6" target="_blank">linkedin.com/in/edward-varela-95a7872a6</a></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ STATUS ══ -->
+  <div class="status-bar section">
+    <div class="status-item"><span class="dot">●</span> ESTADO: DISPONIBLE</div>
+    <div class="status-item"><span class="dot">●</span> MODALIDAD: REMOTO</div>
+    <div class="status-item"><span class="dot-a">●</span> CERT EN CURSO: IFCT0109 SEG. INFORMÁTICA</div>
+    <div class="status-item"><span class="dot">●</span> EXP: +28 AÑOS</div>
+    <div class="status-item"><span class="dot">●</span> IDIOMAS: ES · EN NATIVO</div>
+  </div>
+
+  <!-- ══ PERFIL ══ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">[01]</span>
+      <h2>Perfil Profesional</h2>
+    </div>
+    <div class="profile-box">
+      <p>Técnico senior con más de <span class="highlight">28 años de experiencia</span> en soporte técnico, análisis de incidencias y gestión de equipos en entornos bancarios y tecnológicos de alta disponibilidad. Trayectoria consolidada en <span class="highlight">Necomplus S.L. (Asseco Group)</span>, donde lideré equipos de hasta 20 técnicos gestionando más de <span class="highlight">8.000 incidencias mensuales</span> sobre terminales POS a nivel nacional.</p>
+      <p>Actualmente en transición activa hacia <span class="highlight">ciberseguridad y operaciones SOC</span>, combinando la experiencia en infraestructura técnica y análisis de incidencias con formación específica en seguridad informática. Perfil orientado a trabajo en <span class="highlight">remoto</span>, con probada capacidad de autogestión y documentación técnica rigurosa.</p>
+    </div>
+  </section>
+
+  <!-- ══ EXPERIENCIA ══ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">[02]</span>
+      <h2>Experiencia Profesional</h2>
+    </div>
+    <div class="job-grid">
+
+      <!-- Necomplus bloque principal -->
+      <div class="job-card">
+        <div class="job-top">
+          <span class="company">⬡ Necomplus S.L. — Asseco Group · España</span>
+        </div>
+
+        <!-- Rol 1 -->
+        <div class="role-block">
+          <div class="job-top" style="margin-top:8px">
+            <div class="role">Responsable del Área de Soporte y Análisis</div>
+            <span class="date-badge">JUL.2012 → ENE.2015</span>
+          </div>
+          <div class="metrics">
+            <span class="metric">▲ Equipo: 1–5 técnicos</span>
+            <span class="metric">▲ Reporte a Director de Área</span>
+            <span class="metric">▲ Cobertura: red nacional</span>
+          </div>
+          <ul class="bullets">
+            <li>Dirección del Área de Soporte y Análisis técnico para toda la red nacional de técnicos de campo.</li>
+            <li>Reporte de informes técnicos a Dirección, entidades financieras y fabricantes: <strong>Ingenico, Verifone, Spire</strong>.</li>
+            <li>Homologación interna de terminales y aplicativos POS para correcta operación en campo.</li>
+            <li>Pruebas de funcionamiento con operadores <strong>TNS, Movistar y Vodafone</strong>.</li>
+            <li>Creación y gestión de foro técnico especializado (VBulletin) para la red interna y externa.</li>
+            <li>Elaboración de manuales de instalación, guías de operación y documentación técnica multinivel.</li>
+          </ul>
+        </div>
+
+        <!-- Rol 2 -->
+        <div class="role-block">
+          <div class="job-top" style="margin-top:8px">
+            <div class="role">Coordinador de Cualificación Técnica 2º Nivel</div>
+            <span class="date-badge">MAR.2008 → JUL.2012</span>
+          </div>
+          <div class="metrics">
+            <span class="metric">▲ Equipo: 11–20 técnicos</span>
+            <span class="metric">▲ +25% resolución telefónica</span>
+            <span class="metric">▲ &gt;8.000 averías/mes</span>
+          </div>
+          <ul class="bullets">
+            <li>Lideré el crecimiento del departamento logrando un <strong>aumento superior al 25% en resolución de averías telefónicas</strong>, alcanzando más de 8.000 incidencias mensuales.</li>
+            <li>Coordinación del call center de 2º nivel: incidencias en terminales bancarios e instalaciones en todo el territorio nacional.</li>
+            <li>Desarrollo de la web técnica <strong>CTN</strong> (apoyo a operadores) y del foro <strong>CIN</strong> (tecnología PhpBB).</li>
+            <li>Presentación trimestral de informes de rendimiento por agente y del grupo, con definición de nuevos objetivos.</li>
+            <li>Creación de protocolos de llamada y manuales técnicos de instalación.</li>
+          </ul>
+        </div>
+
+        <!-- Rol 3 -->
+        <div class="role-block">
+          <div class="job-top" style="margin-top:8px">
+            <div class="role">Técnico de Cualificación Técnica 2º Nivel</div>
+            <span class="date-badge">ABR.2006 → MAR.2008</span>
+          </div>
+          <ul class="bullets">
+            <li>Soporte telefónico de 2º nivel para incidencias en terminales POS de todo tipo de tecnología.</li>
+          </ul>
+        </div>
+
+        <!-- Rol 4 -->
+        <div class="role-block">
+          <div class="job-top" style="margin-top:8px">
+            <div class="role">Técnico de Campo (Field Technician)</div>
+            <span class="date-badge">JUL.1996 → ABR.2006</span>
+          </div>
+          <div class="metrics">
+            <span class="metric">▲ Tecnologías: RTC · WiFi · IP · TPVPC</span>
+            <span class="metric">▲ Fabricantes: Verifone · Nurit · Ingenico · Thales · Spire</span>
+          </div>
+          <ul class="bullets">
+            <li>Reparación, instalación y actualización de terminales bancarios de todas las tecnologías a nivel nacional.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Raned -->
+      <div class="job-card">
+        <div class="job-top">
+          <span class="company">⬡ Raned S.L. — España</span>
+          <span class="date-badge">ENE.2015 → SEP.2021</span>
+        </div>
+        <div class="role">Director Técnico Comercial</div>
+        <ul class="bullets">
+          <li>Diseño y desarrollo de páginas web y aplicaciones móviles adaptadas a requisitos de cliente.</li>
+          <li>Mantenimiento microinformático, soporte técnico y gestión de clientes.</li>
+          <li>Creación de identidades visuales, material corporativo y mejoras UI/UX.</li>
+          <li>Análisis comercial, investigación de mercado y coordinación de equipos multifuncionales.</li>
+        </ul>
+      </div>
+
+      <!-- Incoma -->
+      <div class="job-card">
+        <div class="job-top">
+          <span class="company">⬡ Incoma S.L. — España</span>
+          <span class="date-badge">2016 → 2017</span>
+        </div>
+        <div class="role">Director de Operaciones</div>
+        <ul class="bullets">
+          <li>Gestión de stock, desarrollo de operaciones, control técnico y homologación de terminales.</li>
+        </ul>
+      </div>
+
+      <!-- Mariani's -->
+      <div class="job-card">
+        <div class="job-top">
+          <span class="company">⬡ Mariani's Restaurant — Filipinas</span>
+          <span class="date-badge">NOV.2021 → DIC.2023</span>
+        </div>
+        <div class="role">Gerente General</div>
+        <ul class="bullets">
+          <li>Gestión integral de operaciones: personal, inventario, proveedores y atención al cliente.</li>
+          <li>Control presupuestario, informes financieros y gestión de flujo de caja.</li>
+          <li>Desarrollo de estrategias de marketing y fidelización de clientes.</li>
+        </ul>
+      </div>
+
+      <!-- Electro -->
+      <div class="job-card">
+        <div class="job-top">
+          <span class="company">⬡ Club Electro — España</span>
+          <span class="date-badge">ENE.2006 → DIC.2006</span>
+        </div>
+        <div class="role">Gerente</div>
+        <ul class="bullets">
+          <li>Dirección completa del negocio: contratación de personal (6–10 empleados), compras y organización general.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ FORMACIÓN Y CERTIFICACIONES ══ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">[03]</span>
+      <h2>Certificaciones y Formación</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card active">
+        <div class="cert-title">IFCT0109 — Seguridad Informática</div>
+        <div class="cert-inst">SEPE · Formación Profesional para el Empleo</div>
+        <div class="cert-date wip">⬡ EN CURSO — 2025/2026</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-title">IFCT0022 — Big Data</div>
+        <div class="cert-inst">Centro ADAMS · SEPE · Aula Virtual</div>
+        <div class="cert-date done">✓ COMPLETADO — ENE.2026 · 40h</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ EDUCACIÓN ══ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">[04]</span>
+      <h2>Educación</h2>
+    </div>
+    <div class="edu-card">
+      <div class="edu-inst">⬡ Instituto Politécnico de Alicante</div>
+      <div class="edu-row">
+        <div class="edu-title">FP Grado Superior — Electrónica Industrial</div>
+        <span class="edu-period">1993 – 1996</span>
+      </div>
+      <div class="edu-row">
+        <div class="edu-title">FP Grado Superior — Edificación y Obra Civil</div>
+        <span class="edu-period">1990 – 1993</span>
+      </div>
+    </div>
+    <div style="height:10px"></div>
+    <div class="edu-card" style="border-top-color: var(--muted); margin-top:0">
+      <div class="edu-inst" style="color:var(--muted)">⬡ Formación complementaria</div>
+      <div class="edu-row">
+        <div class="edu-title" style="color:var(--text2)">Saratoga High School — Saratoga, CA (EE.UU.)</div>
+        <span class="edu-period">1988 – 1989</span>
+      </div>
+      <div class="edu-row">
+        <div class="edu-title" style="color:var(--text2)">Bachillerato — IES Jaime II, Alicante</div>
+        <span class="edu-period">1985 – 1988</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ HABILIDADES ══ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">[05]</span>
+      <h2>Stack de Habilidades</h2>
+    </div>
+    <div class="skills-cols">
+      <div>
+        <div class="skill-group-title">// CIBERSEGURIDAD &amp; SOC</div>
+        <div class="tag-cloud">
+          <span class="tag hi">Seguridad Informática</span>
+          <span class="tag hi">Análisis de Incidencias</span>
+          <span class="tag hi">Análisis de Causa Raíz</span>
+          <span class="tag hi">Big Data</span>
+          <span class="tag">Monitoreo SLA/KPI</span>
+          <span class="tag">Documentación técnica</span>
+          <span class="tag">Gestión de Tickets</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">// HERRAMIENTAS</div>
+        <div class="tag-cloud">
+          <span class="tag hi">Jira</span>
+          <span class="tag">Freshdesk</span>
+          <span class="tag">VBulletin</span>
+          <span class="tag">PhpBB</span>
+          <span class="tag">HTML / CSS</span>
+          <span class="tag">SQL Básico</span>
+          <span class="tag">Microsoft Office</span>
+          <span class="tag">WordPress</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">// GESTIÓN &amp; LIDERAZGO</div>
+        <div class="tag-cloud">
+          <span class="tag">Liderazgo de Equipos</span>
+          <span class="tag">Coordinación Call Center</span>
+          <span class="tag">QA / Control de Calidad</span>
+          <span class="tag">Mejora de Procesos</span>
+          <span class="tag">Informes a Dirección</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">// TÉCNICO HARDWARE</div>
+        <div class="tag-cloud">
+          <span class="tag">Terminales POS/TPV</span>
+          <span class="tag">Ingenico · Verifone · Spire</span>
+          <span class="tag">RTC · WiFi · IP · TPVPC</span>
+          <span class="tag">Soporte Remoto</span>
+          <span class="tag">Homologación terminales</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ IDIOMAS ══ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">[06]</span>
+      <h2>Idiomas</h2>
+    </div>
+    <div class="lang-row">
+      <div class="lang-card">
+        <div class="lang-name">Español</div>
+        <div class="lang-lvl">NATIVO // L1</div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name">Inglés</div>
+        <div class="lang-lvl">NATIVO // C2</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PERFIL REMOTO ══ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">[07]</span>
+      <h2>Disponibilidad &amp; Modalidad</h2>
+    </div>
+    <div class="remote-box">
+      <div class="remote-item"><span class="ic">◆</span> Trabajo 100% remoto</div>
+      <div class="remote-item"><span class="ic">◆</span> Disponibilidad inmediata</div>
+      <div class="remote-item"><span class="ic">◆</span> Carnet de conducir B · Vehículo propio</div>
+      <div class="remote-item"><span class="ic">◆</span> Disponibilidad para viajar según condiciones</div>
+      <div class="remote-item"><span class="ic">◆</span> Permiso de trabajo: España (UE)</div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="cv-footer">
+    <span>EDWARD_A_VARELA_MARIANI · CV_DEFINITIVO_v3.0</span>
+    <span>edward.varela.mariani@gmail.com · +34 604 869 653</span>
+  </div>
+
+</div>
+</body>
+</html>
